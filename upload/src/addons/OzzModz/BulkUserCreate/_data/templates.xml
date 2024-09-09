@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="admin" title="ozzmodz_buc_add_users" version_id="2000000" version_string="2.0.0"><![CDATA[<xf:title>{{ phrase('admin_navigation.ozzmodz_buc') }}</xf:title>
+
+<xf:if is="$usersAdded">
+	<div class="blockMessage blockMessage--success blockMessage--iconic">{{ phrase('ozzmodz_buc_users_added', {'amount': $usersAdded}) }}</div>
+</xf:if>
+
+<xf:if is="$errors">
+	<div class="blockMessage blockMessage--error blockMessage--iconic">
+		<ul>
+			<xf:foreach loop="$errors" value="$error">
+				<li>{$error}</li>
+			</xf:foreach>
+		</ul>
+	</div>
+</xf:if>
+
+<div class="block">
+	<xf:form action="{{ link('users/save-bulk') }}" ajax="true" class="block-container" novalidate="novalidate">
+		<h2 class="block-tabHeader tabs hScroller" data-xf-init="tabs h-scroller" data-state="replace" role="tablist">
+			<span class="hScroller-scroll">
+				<!--[XF:tabs:start]-->
+				<a class="tabs-tab is-active" role="tab" tabindex="0"
+					id="user-details"
+					aria-controls="user-details"
+					href="{{ link('users/edit', $user) }}#user-details">{{ phrase('user_details') }}</a>
+				<!--[XF:tabs:end]-->
+			</span>
+		</h2>
+
+		<ul class="tabPanes">
+			<!--[XF:tab_panes:start]-->
+			<li class="is-active" role="tabpanel" aria-labelledby="user-details">
+				<div class="block-body">
+					
+					<xf:numberboxrow name="amount" min="1" label="{{ phrase('ozzmodz_buc_user_amount') }}" />
+					
+					<xf:checkboxrow label="{{ phrase('user_name') }}">
+						<xf:option name="custom_usernames" data-hide="true" label="{{ phrase('ozzmodz_buc_custom_usernames') }}" hint="{{ phrase('ozzmodz_buc_otherwise_random') }}">
+							<xf:dependent>
+								<xf:textarea name="usernames" autosize="{{ true }}" />
+								<dfn class="inputChoices-explain">{{ phrase('ozzmodz_buc_custom_usernames_explain') }}</dfn>
+							</xf:dependent>
+						</xf:option>
+					</xf:checkboxrow>
+
+					<xf:radiorow label="{{ phrase('email') }}" name="option_emails">
+						<xf:option value="random" data-hide="true" selected="true" label="{{ phrase('ozzmodz_buc_random') }}">
+							<xf:dependent>
+								<xf:textbox name="random_email_domain" value="@example.com" />
+							</xf:dependent>
+						</xf:option>
+						<xf:option value="custom" data-hide="true" label="{{ phrase('ozzmodz_buc_custom_emails') }}">
+							<xf:dependent>
+								<xf:textarea name="emails" dir="ltr" autosize="{{ true }}" />
+								<dfn class="inputChoices-explain">{{ phrase('ozzmodz_buc_custom_emails_explain') }}</dfn>
+							</xf:dependent>
+						</xf:option>
+					</xf:radiorow>
+					
+					<xf:checkboxrow label="{{ phrase('password') }}">
+						<xf:option name="custom_passwords" data-hide="true" label="{{ phrase('ozzmodz_buc_custom_passwords') }}" hint="{{ phrase('ozzmodz_buc_otherwise_random') }}">
+							<xf:dependent>
+								<xf:textarea name="passwords" autosize="{{ true }}" />
+								<dfn class="inputChoices-explain">{{ phrase('ozzmodz_buc_custom_passwords_explain') }}</dfn>
+							</xf:dependent>
+						</xf:option>
+					</xf:checkboxrow>
+
+					<hr class="formRowSep" />
+
+					<xf:selectrow name="user[user_group_id]" value="{$user.user_group_id}"
+						label="{{ phrase('user_group') }}">
+						<xf:options source="$userGroups" />
+					</xf:selectrow>
+
+					<xf:checkboxrow name="user[secondary_group_ids]" value="{$user.secondary_group_ids}"
+						listclass="listColumns"
+						label="{{ phrase('secondary_user_groups') }}">
+						<xf:options source="$userGroups" />
+					</xf:checkboxrow>
+
+					<xf:checkboxrow>
+						<xf:option name="user[is_staff]" selected="$user.is_staff"
+							label="{{ phrase('display_user_as_staff') }}"
+							hint="{{ phrase('if_selected_this_user_will_be_listed_publicly_as_staff_member') }}" />
+					</xf:checkboxrow>
+
+					<xf:selectrow name="user[user_state]" value="{$user.user_state}"
+						label="{{ phrase('user_state') }}">
+
+						<xf:option value="valid">{{ phrase('valid') }}</xf:option>
+						<xf:option value="email_confirm">{{ phrase('awaiting_email_confirmation') }}</xf:option>
+						<xf:option value="email_confirm_edit">{{ phrase('awaiting_email_confirmation_from_edit') }}</xf:option>
+						<xf:option value="email_bounce">{{ phrase('email_invalid_bounced') }}</xf:option>
+						<xf:option value="moderated">{{ phrase('awaiting_approval') }}</xf:option>
+						<xf:option value="rejected">{{ phrase('rejected') }}</xf:option>
+						<xf:option value="disabled">{{ phrase('disabled') }}</xf:option>
+						<xf:explain>
+							{{ phrase('when_user_state_non_x_users_receive_permissions_guest_group', {'valid_state': phrase('valid'), 'guest': '<a href="' . link('user-groups/edit', {'user_group_id': 1, 'title': $userGroups.1}) . '" target="_blank">' . $userGroups.1 . '</a>'}) }}
+						</xf:explain>
+					</xf:selectrow>
+
+					<xf:selectrow name="user[security_lock]" value="{$user.security_lock}"
+						label="{{ phrase('security_lock') }}">
+
+						<xf:option value="">{{ phrase('none') }}</xf:option>
+						<xf:option value="change">{{ phrase('locked:') }} {{ phrase('user_must_change_password') }}</xf:option>
+						<xf:option value="reset">{{ phrase('locked:') }} {{ phrase('user_must_reset_password') }}</xf:option>
+						<xf:explain>
+							{{ phrase('user_security_lock_explain') }}
+						</xf:explain>
+					</xf:selectrow>
+
+					<hr class="formRowSep" />
+
+					<xf:checkboxrow>
+						<xf:option name="option[is_discouraged]" selected="$user.Option.is_discouraged"
+							hint="{{ phrase('discouraged_hint') }}">{{ phrase('discouraged') }}</xf:option>
+						<xf:explain><a href="{{ link('banning/discouraged-ips') }}">{{ phrase('alternatively_use_ip_discouragement') }}</a></xf:explain>
+					</xf:checkboxrow>
+				</div>
+
+				<h3 class="block-formSectionHeader">
+					<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+						<span class="block-formSectionHeader-aligner">{{ phrase('personal_details') }}</span>
+					</span>
+				</h3>
+				<div class="block-body block-body--collapsible">
+					<xf:macro template="public:helper_user_dob_edit" name="dob_edit" arg-dobData="{$user.Profile}" />
+
+					<hr class="formRowSep" />
+
+					<xf:textboxrow name="profile[location]" value="{$user.Profile.location_}"
+						label="{{ phrase('location') }}" />
+					<xf:textboxrow name="profile[website]" value="{$user.Profile.website_}" type="url"
+						label="{{ phrase('website') }}"
+						dir="ltr" />
+					<xf:macro template="public:custom_fields_macros" name="custom_fields_edit"
+						arg-type="users" arg-group="personal" arg-set="{$user.Profile.custom_fields}" arg-editMode="admin" />
+					<xf:textarearow name="profile[about]" value="{$user.Profile.about_}" autosize="true"
+						label="{{ phrase('about') }}"
+						hint="{{ phrase('you_may_use_bb_code') }}" />
+				</div>
+
+				<h3 class="block-formSectionHeader">
+					<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+						<span class="block-formSectionHeader-aligner">{{ phrase('profile_info') }}</span>
+					</span>
+				</h3>
+				<div class="block-body block-body--collapsible">
+					<xf:textboxrow name="user[custom_title]" value="{$user.custom_title_}"
+						maxlength="{{ max_length($user, 'custom_title') }}"
+						label="{{ phrase('custom_title') }}" />
+					<xf:textarearow name="profile[signature]" value="{$user.Profile.signature_}" autosize="true"
+						label="{{ phrase('signature') }}"
+						hint="{{ phrase('you_may_use_bb_code') }}" />
+
+					<hr class="formRowSep" />
+
+					<xf:numberboxrow name="user[message_count]" value="{$user.message_count}" min="0"
+						label="{{ phrase('messages') }}" />
+					<xf:numberboxrow name="user[reaction_score]" value="{$user.reaction_score}"
+						label="{{ phrase('reaction_score') }}" />
+					<xf:numberboxrow name="user[trophy_points]" value="{$user.trophy_points}" min="0"
+						label="{{ phrase('trophy_points') }}" />
+				</div>
+
+				<h3 class="block-formSectionHeader">
+					<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+						<span class="block-formSectionHeader-aligner">{{ phrase('additional_contact') }}</span>
+					</span>
+				</h3>
+				<div class="block-body block-body--collapsible">
+					<xf:macro template="public:custom_fields_macros" name="custom_fields_edit"
+						arg-type="users" arg-group="contact" arg-set="{$user.Profile.custom_fields}" arg-editMode="admin" />
+				</div>
+
+				<h3 class="block-formSectionHeader">
+					<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+						<span class="block-formSectionHeader-aligner">{{ phrase('preferences') }}</span>
+					</span>
+				</h3>
+				<div class="block-body block-body--collapsible">
+					<xf:selectrow name="user[style_id]" value="{$user.style_id}"
+						label="{{ phrase('style') }}">
+
+						<xf:option value="0">{{ phrase('(use_default_style)') }}</xf:option>
+						<xf:foreach loop="$styleTree.getFlattened(0)" value="$treeEntry">
+							<xf:option value="{$treeEntry.record.style_id}">{{ repeat('--', $treeEntry.depth) }} {$treeEntry.record.title}</xf:option>
+						</xf:foreach>
+					</xf:selectrow>
+
+					<hr class="formRowSep" />
+
+					<xf:selectrow name="user[language_id]" value="{$user.language_id}"
+						label="{{ phrase('language') }}">
+
+						<xf:foreach loop="$languageTree.getFlattened(0)" value="$treeEntry">
+							<xf:option value="{$treeEntry.record.language_id}">{{ repeat('--', $treeEntry.depth) }}
+								{$treeEntry.record.title}</xf:option>
+						</xf:foreach>
+					</xf:selectrow>
+
+					<xf:selectrow name="user[timezone]" value="{$user.timezone}"
+						label="{{ phrase('time_zone') }}">
+
+						<xf:options source="$timeZones" />
+					</xf:selectrow>
+
+					<hr class="formRowSep" />
+
+					<xf:checkboxrow>
+						<xf:option name="option[content_show_signature]" selected="$user.Option.content_show_signature">
+							{{ phrase('show_signatures_with_messages') }}</xf:option>
+						<xf:option name="option[receive_admin_email]" selected="$user.Option.receive_admin_email">
+							{{ phrase('receive_site_mailings_option') }}
+						</xf:option>
+						<xf:option name="enable_activity_summary_email" selected="$user.last_summary_email_date !== null">
+							{{ phrase('receive_summary_activity_email') }}
+						</xf:option>
+						<xf:option name="option[email_on_conversation]" selected="$user.Option.email_on_conversation">
+							{{ phrase('receive_email_when_new_conversation_message_is_received') }}</xf:option>
+					</xf:checkboxrow>
+
+					<xf:selectrow name="option[creation_watch_state]" value="{$user.Option.creation_watch_state}"
+						label="{{ phrase('watch_content_on_creation') }}">
+
+						<xf:option value="watch_no_email">{{ phrase('yes') }}</xf:option>
+						<xf:option value="watch_email">{{ phrase('yes_with_email') }}</xf:option>
+						<xf:option value="">{{ phrase('no') }}</xf:option>
+					</xf:selectrow>
+
+					<xf:selectrow name="option[interaction_watch_state]" value="{$user.Option.interaction_watch_state}"
+						label="{{ phrase('watch_content_on_interaction') }}">
+
+						<xf:option value="watch_no_email">{{ phrase('yes') }}</xf:option>
+						<xf:option value="watch_email">{{ phrase('yes_with_email') }}</xf:option>
+						<xf:option value="">{{ phrase('no') }}</xf:option>
+					</xf:selectrow>
+
+					<xf:macro template="public:custom_fields_macros" name="custom_fields_edit"
+						arg-type="users"
+						arg-group="preferences"
+						arg-set="{$user.Profile.custom_fields}"
+						arg-editMode="admin" />
+				</div>
+
+				<h3 class="block-formSectionHeader">
+					<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+						<span class="block-formSectionHeader-aligner">{{ phrase('privacy') }}</span>
+					</span>
+				</h3>
+				<div class="block-body block-body--collapsible">
+					<xf:checkboxrow label="{{ phrase('general_privacy') }}">
+						<xf:option name="user[visible]" selected="$user.visible">
+							<xf:label>{{ phrase('show_online_status') }}</xf:label>
+							<xf:dependent>
+								<xf:checkbox>
+									<xf:option name="user[activity_visible]" selected="$user.activity_visible">
+										{{ phrase('show_current_activity') }}
+									</xf:option>
+								</xf:checkbox>
+							</xf:dependent>
+						</xf:option>
+						<xf:option name="option[show_dob_date]" selected="$user.Option.show_dob_date">
+							{{ phrase('show_day_and_month_of_birth') }}
+						</xf:option>
+						<xf:option name="option[show_dob_year]" selected="$user.Option.show_dob_year">
+							{{ phrase('show_year_of_birth') }}
+						</xf:option>
+					</xf:checkboxrow>
+
+					<hr class="formRowSep" />
+
+					<!--[XF:privacy_select:allow_view_profile]-->
+					<xf:macro name="privacy_select"
+						arg-name="allow_view_profile"
+						arg-label="{{ phrase('view_this_users_profile_page_details') }}"
+						arg-user="{$user}" />
+
+					<!--[XF:privacy_select:allow_post_profile]-->
+					<xf:macro name="privacy_select"
+						arg-name="allow_post_profile"
+						arg-label="{{ phrase('post_messages_on_this_users_profile_page') }}"
+						arg-user="{$user}"
+						arg-hideEveryone="{{true}}" />
+
+					<!--[XF:privacy_select:allow_receive_news_feed]-->
+					<xf:macro name="privacy_select"
+						arg-name="allow_receive_news_feed"
+						arg-label="{{ phrase('receive_this_users_news_feed') }}"
+						arg-user="{$user}" />
+
+					<hr class="formRowSep" />
+
+					<!--[XF:privacy_select:allow_send_personal_conversation]-->
+					<xf:macro name="privacy_select"
+						arg-name="allow_send_personal_conversation"
+						arg-label="{{ phrase('initiate_conversations_with_this_user') }}"
+						arg-user="{$user}"
+						arg-hideEveryone="{{true}}" />
+
+					<!--[XF:privacy_select:allow_view_identities]-->
+					<xf:macro name="privacy_select"
+						arg-name="allow_view_identities"
+						arg-label="{{ phrase('view_this_users_identities') }}"
+						arg-user="{$user}" />
+				</div>
+
+				<xf:submitrow icon="save" sticky="true" />
+			</li>
+			<!--[XF:tab_panes:end]-->
+		</ul>
+	</xf:form>
+</div>
+
+<xf:macro name="privacy_select" arg-name="!" arg-label="!" arg-user="!" arg-hideEveryone="{{false}}">
+	<xf:selectrow name="privacy[{$name}]" value="{$user.Privacy.{$name}}"
+		label="{$label}">
+
+		<xf:option value="none">{{ phrase('nobody') }}</xf:option>
+		<xf:if is="!$hideEveryone">
+			<xf:option value="everyone">{{ phrase('all_visitors') }}</xf:option>
+		</xf:if>
+		<xf:option value="members">{{ phrase('members_only') }}</xf:option>
+		<xf:option value="followed">{{ phrase('people_x_follows', {'name': ($user.username ? $user.username : '[' . phrase('user') . ']')}) }}</xf:option>
+	</xf:selectrow>
+</xf:macro>]]></template>
+</templates>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="admin_navigation.ozzmodz_buc" version_id="2000000" version_string="2.0.0"><![CDATA[Bulk create new users]]></phrase>
+  <phrase title="ozzmodz_buc_custom_emails" version_id="2000000" version_string="2.0.0"><![CDATA[Use custom email list]]></phrase>
+  <phrase title="ozzmodz_buc_custom_emails_explain" version_id="2000000" version_string="2.0.0"><![CDATA[List of emails separated by new line]]></phrase>
+  <phrase title="ozzmodz_buc_custom_passwords" version_id="2000000" version_string="2.0.0"><![CDATA[Use custom password list]]></phrase>
+  <phrase title="ozzmodz_buc_custom_passwords_explain" version_id="2000000" version_string="2.0.0"><![CDATA[List of passwords separated by new line. If specified less than add amount, the last value will be used for not defined user. ]]></phrase>
+  <phrase title="ozzmodz_buc_custom_usernames" version_id="2000000" version_string="2.0.0"><![CDATA[Use custom username list]]></phrase>
+  <phrase title="ozzmodz_buc_custom_usernames_explain" version_id="2000000" version_string="2.0.0"><![CDATA[List of usernames separated by new line]]></phrase>
+  <phrase title="ozzmodz_buc_field_x_entry_count_doesnt_match" version_id="2000000" version_string="2.0.0"><![CDATA[The '{field}' field entry count doesn't match with specified user add amount]]></phrase>
+  <phrase title="ozzmodz_buc_otherwise_random" version_id="2000000" version_string="2.0.0"><![CDATA[Otherwise will be used random generator]]></phrase>
+  <phrase title="ozzmodz_buc_random" version_id="2000000" version_string="2.0.0"><![CDATA[Random]]></phrase>
+  <phrase title="ozzmodz_buc_user_amount" version_id="2000000" version_string="2.0.0"><![CDATA[Add amount]]></phrase>
+  <phrase title="ozzmodz_buc_users_added" version_id="2000000" version_string="2.0.0"><![CDATA[Users added: {amount}]]></phrase>
+</phrases>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="public" title="vnxf_imgur" version_id="24082021" version_string="1.0"><![CDATA[<xf:title>Imgur Upload</xf:title>
+
+<xf:form action="{{ link('attachments/imgur') }}" class="block" upload="true">
+	<div class="block-container">
+		<div class="block-body">
+				<xf:formrow label="Uploaded images">
+					<xf:css src="attachments.less" />
+					<ul class="attachUploadList">
+						<xf:foreach loop="$attachment" value="$a">
+							<li class="js-attachmentFile" style="position:relative;margin-bottom: 10px;">
+								<img src="{$a}" class="js-attachmentThumb" width="100%" height="auto" style="max-width:700px;border: 1px solid #ccc">
+								<input class="input" value="{$a}" type="text" style="position: absolute;bottom: 5px;max-width: 700px;left: 0;box-sizing: border-box;text-align: center;background: #e8e8e8b8;">
+							</li>
+						</xf:foreach>
+					</ul>
+				</xf:formrow>
+				<xf:uploadrow id="filesupload" name="attachment[]" multiple="multiple" accept=".{$constraints.extensions|join(',.')}"
+					label="{{ phrase('attach_file') }}"
+					explain="{{ phrase('you_may_close_this_window_tab_once_you_have_uploaded_your_files_to_return') }}" />
+		</div>
+		<xf:submitrow submit="{{ phrase('upload') }}" icon="upload" />
+	</div>
+</xf:form>
+<xf:js>
+</xf:js>]]></template>
+  <template type="public" title="vnxf_imgur_embed" version_id="24082021" version_string="1.0"><![CDATA[<input type="file" style="display:none;" name="imgur[]" multiple id="fileembed" />
+<a href="javascript:;" onClick="$('#fileembed').trigger('click');" class="button--link button button--icon button--icon--attach"><span class="button-text">Imgur</span></a>
+<xf:js>
+$("#fileembed").change(function() {
+	//File data
+	var data = new FormData();
+	var file_data = $('input#fileembed')[0].files;
+	for (var i = 0; i < file_data.length; i++) {
+		data.append('attachment[]', file_data[i]);
+	}
+	var url = "{{ link('full:attachments/imgur','') }}";
+	XF.ajax("post", url, data, function(data) {
+		$.each(data.results, function (key, item){
+			$('textarea')[0]["data-froala.editor"].html.insert('<img src="'+item+'">\n');
+		});
+		$('input#fileembed').val('');
+	});
+});
+</xf:js>]]></template>
+</templates>

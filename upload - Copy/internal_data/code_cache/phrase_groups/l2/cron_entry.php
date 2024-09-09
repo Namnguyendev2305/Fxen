@@ -1,0 +1,23 @@
+<?php
+return array (
+  'cron_entry.activitySummaryEmail' => 'Send activity summary email',
+  'cron_entry.cleanUpDaily' => 'Dọn dẹp hàng ngày',
+  'cron_entry.cleanUpHourly' => 'Dọn dẹp hàng giờ',
+  'cron_entry.dailyStats' => 'Thống kê hàng ngày',
+  'cron_entry.deleteExpiredBans' => 'Xóa lệnh cấm đã hết hạn',
+  'cron_entry.downgradeExpired' => 'Hạ cấp thành viên đã hết hạn nâng cấp',
+  'cron_entry.emailBounce' => 'Quá trình email bị từ chối',
+  'cron_entry.emailUnsubscribe' => 'Process email unsubscribe requests',
+  'cron_entry.expireTempUserChanges' => 'Hết hạn tạm thời thành viên thay đổi',
+  'cron_entry.feeder' => 'Feeder',
+  'cron_entry.fileCheck' => 'Kiểm tra độ an toàn tập tin',
+  'cron_entry.forumStatistics' => 'Cập nhật thống kê diễn đàn',
+  'cron_entry.memberStatsCache' => 'Cập nhật bộ nhớ đệm thống kê thành viên',
+  'cron_entry.rebuildSearchForumCache' => 'Rebuild expired search forum caches',
+  'cron_entry.run_successfully' => 'Cron chạy thành công.',
+  'cron_entry.sitemap' => 'Cập nhật Sitemap',
+  'cron_entry.trophy' => 'Cập nhật danh hiệu thành viên',
+  'cron_entry.userGroupPromotions' => 'Khuyến mãi nhóm thành viên',
+  'cron_entry.views' => 'Cập nhật lượt xem',
+  'cron_entry.warningExpiry' => 'Xử lý hết hạn cảnh cáo',
+);

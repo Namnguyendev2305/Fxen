@@ -1,0 +1,148 @@
+<?php
+// FROM HASH: d0082db3bacb75ea9de229858fb9391f
+return array(
+'code' => function($__templater, array $__vars, $__extensions = null)
+{
+	$__finalCompiled = '';
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Watched series');
+	$__finalCompiled .= '
+
+';
+	$__templater->setPageParam('searchConstraints', array('Articles' => array('search_type' => 'ams_article', ), ));
+	$__finalCompiled .= '
+
+';
+	$__templater->includeCss('node_list.less');
+	$__finalCompiled .= '
+
+';
+	if (!$__templater->test($__vars['watchedSeries'], 'empty', array())) {
+		$__finalCompiled .= '
+	';
+		$__compilerTemp1 = '';
+		if ($__templater->isTraversable($__vars['series'])) {
+			foreach ($__vars['series'] AS $__vars['id'] => $__vars['seriesItem']) {
+				$__compilerTemp1 .= '
+
+					';
+				$__vars['seriesWatch'] = $__vars['watchedSeries'][$__vars['seriesItem']['series_id']];
+				$__compilerTemp1 .= '
+
+					';
+				$__compilerTemp2 = '';
+				if ($__vars['seriesWatch']['notify_on'] == 'series_part') {
+					$__compilerTemp2 .= '<li>' . 'New articles' . '</li>';
+				}
+				$__compilerTemp3 = '';
+				if ($__vars['seriesWatch']['send_email']) {
+					$__compilerTemp3 .= '<li>' . 'Emails' . '</li>';
+				}
+				$__compilerTemp4 = '';
+				if ($__vars['seriesWatch']['send_alert']) {
+					$__compilerTemp4 .= '<li>' . 'Thông báo' . '</li>';
+				}
+				$__vars['bonusInfo'] = $__templater->preEscaped('
+						<ul class="listInline listInline--bullet">
+							' . $__compilerTemp2 . '
+							' . $__compilerTemp3 . '
+							' . $__compilerTemp4 . '
+						</ul>
+					');
+				$__compilerTemp1 .= '
+					' . $__templater->callMacro('xa_ams_series_list_macros', 'series_watch_item', array(
+					'series' => $__vars['seriesItem'],
+					'chooseName' => 'ids',
+					'bonusInfo' => $__vars['bonusInfo'],
+				), $__vars) . '
+
+				';
+			}
+		}
+		$__finalCompiled .= $__templater->form('
+		<div class="block-outer">' . $__templater->func('trim', array('
+			' . $__templater->func('page_nav', array(array(
+			'page' => $__vars['page'],
+			'total' => $__vars['total'],
+			'link' => 'watched/ams-series',
+			'wrapperclass' => 'block-outer-main',
+			'perPage' => $__vars['perPage'],
+		))) . '
+		'), false) . '</div>
+
+		<div class="block-container">
+			<div class="block-body">
+				' . $__compilerTemp1 . '
+			</div>
+			<div class="block-footer block-footer--split">
+				<span class="block-footer-counter"></span>
+				<span class="block-footer-select">' . $__templater->formCheckBox(array(
+			'standalone' => 'true',
+		), array(array(
+			'check-all' => '< .block-container',
+			'label' => 'Chọn tất cả',
+			'_type' => 'option',
+		))) . '</span>
+				<span class="block-footer-controls">
+					' . $__templater->formSelect(array(
+			'name' => 'watch_action',
+			'class' => 'input--inline',
+		), array(array(
+			'label' => 'Với lựa chọn' . $__vars['xf']['language']['ellipsis'],
+			'_type' => 'option',
+		),
+		array(
+			'value' => 'send_email:on',
+			'label' => 'Bật thông báo email',
+			'_type' => 'option',
+		),
+		array(
+			'value' => 'send_email:off',
+			'label' => 'Tắt thông báo email',
+			'_type' => 'option',
+		),
+		array(
+			'value' => 'send_alert:on',
+			'label' => 'Bật cảnh báo',
+			'_type' => 'option',
+		),
+		array(
+			'value' => 'send_alert:off',
+			'label' => 'Tắt thông báo',
+			'_type' => 'option',
+		),
+		array(
+			'value' => 'delete',
+			'label' => 'Ngừng theo dõi',
+			'_type' => 'option',
+		))) . '
+					' . $__templater->button('Tới', array(
+			'type' => 'submit',
+		), '', array(
+		)) . '
+				</span>
+			</div>
+		</div>
+
+		<div class="block-outer block-outer--after">
+			' . $__templater->func('page_nav', array(array(
+			'link' => 'watched/ams-series',
+			'page' => $__vars['page'],
+			'total' => $__vars['total'],
+			'perPage' => $__vars['perPage'],
+		))) . '
+		</div>
+	', array(
+			'action' => $__templater->func('link', array('watched/ams-series/update', ), false),
+			'ajax' => 'true',
+			'class' => 'block',
+			'autocomplete' => 'off',
+		)) . '
+';
+	} else {
+		$__finalCompiled .= '
+	<div class="blockMessage">' . 'You are not watching any series. ' . '</div>
+';
+	}
+	return $__finalCompiled;
+}
+);

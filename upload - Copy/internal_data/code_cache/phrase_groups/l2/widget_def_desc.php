@@ -1,0 +1,20 @@
+<?php
+return array (
+  'widget_def_desc.birthdays' => 'A block containing a heap of avatars of users whose birthday is today.',
+  'widget_def_desc.find_member' => 'Thêm một khối tự động hoàn thành vào trang cho phép bạn tìm kiếm hồ sơ của thành viên bằng tên thành viên của họ.',
+  'widget_def_desc.forum_statistics' => 'Displays a block which shows the forum\'s current statistics on things like total discussions, messages and members.',
+  'widget_def_desc.html' => 'Widget that lets you add custom HTML. This widget supports XenForo template syntax.',
+  'widget_def_desc.member_stat' => 'Displays the list of users from the specified member stat cache.',
+  'widget_def_desc.members_online' => 'Displays a summary of the number of online users, guests and robots, plus a summary of online members and people you follow.',
+  'widget_def_desc.new_posts' => 'Displays a block containing a list of X threads which have most recently been posted in.',
+  'widget_def_desc.new_profile_posts' => 'Displays a block containing a list of X recent profile posts.',
+  'widget_def_desc.new_threads' => 'Displays a block containing a list of X threads which have most recently been created.',
+  'widget_def_desc.newest_members' => 'A block containing a heap of avatars of users who have recently registered.',
+  'widget_def_desc.online_statistics' => 'Displays a block of statistics with a break down of the current visitors on the forum and whether they are registered, guests, or robots.',
+  'widget_def_desc.php_callback' => 'Allows you to render the contents of a widget using a PHP callback. The callback should return the \\XF\\Widget\\WidgetRenderer object, set up with the template name and params necessary to render the widget.',
+  'widget_def_desc.search_forum' => 'Displays a block containing a list of X threads from a search forum.',
+  'widget_def_desc.share_page' => 'Thêm một tập hợp các nút chia sẻ vào một khối để cho phép chia sẻ trang hiện tại trên các phương tiện truyền thông xã hội.',
+  'widget_def_desc.template_syntax' => 'Widget that creates an associated template which will allow you to display XF template syntax and HTML.',
+  'widget_def_desc.thread_poll' => 'Displays the specified poll in a widget.',
+  'widget_def_desc.visitor_panel' => 'Hiển thị hình đại diện của khách truy cập và thông tin cơ bản cho khách truy cập về chính họ.',
+);

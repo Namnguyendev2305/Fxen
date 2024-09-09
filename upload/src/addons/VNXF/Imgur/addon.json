@@ -1,0 +1,14 @@
+{
+    "legacy_addon_id": "",
+    "title": "[VNXF] Imgur",
+    "description": "Upload image use Imgur",
+    "version_id": 24082021,
+    "version_string": "1.0",
+    "dev": "Blue VNXF",
+    "dev_url": "",
+    "faq_url": "",
+    "support_url": "",
+    "extra_urls": [],
+    "require": [],
+    "icon": "logo.png"
+}

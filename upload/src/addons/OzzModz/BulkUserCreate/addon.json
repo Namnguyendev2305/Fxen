@@ -1,0 +1,20 @@
+{
+    "legacy_addon_id": "",
+    "title": "[OzzModz] Bulk New User Create",
+    "description": "",
+    "version_id": 2000000,
+    "version_string": "2.0.0",
+    "dev": "Painbaker",
+    "dev_url": "https://xenforo.com/community/members/painbaker.184537/",
+    "faq_url": "",
+    "support_url": "https://snogssite.com/",
+    "extra_urls": [],
+    "require": {
+        "XF": [
+            2010070,
+            "XenForo 2.2.0+"
+        ]
+    },
+    "icon": "fa-user-plus",
+    "composer_autoload": "vendor/composer"
+}
